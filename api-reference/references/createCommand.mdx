@@ -1,0 +1,42 @@
+---
+title: "createCommand()"
+description: "Mintlify gives you complete control over the look and feel of your documentation using the mint.json file"
+---
+
+Every Mintlify site needs a `mint.json` file with the core configuration settings. Learn more about the [properties](#properties) below.
+
+## Properties
+
+<ResponseField name="name" type="string[]" required>
+  Example: `coin`, `join`, `play`
+</ResponseField>
+
+<ParamField path="user_id" type="string">
+  The id of the user
+</ParamField>
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      The full name of the user
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Whether the user is over 21 years old
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      The full name of the user
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Whether the user is over 21 years old
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>

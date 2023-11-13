@@ -1,0 +1,28 @@
+---
+title: "Runtime"
+---
+
+La runtime de Sparkle s'appuie sur le moteur v8 pour exécuter vos bloques de logique.
+
+A la base v8 est une puissante machine virtuelle développée par Google, utilisée pour exécuter JavaScript dans le navigateur Chrome.
+
+Dans le contexte de Sparkle, cela signifie que vos bots Twitch fonctionneront dans un environnement similaire à celui d'un navigateur web moderne.
+
+# Pourquoi V8 ?
+
+**Reactivité et performance :** v8 est optimisé pour des performances rapides, ce qui est crucial pour la réactivité des bots et qui nous permet de vous fournir les temps de reponse les plus bas possible.
+
+**Compatibilité ECMAScript :** v8 prend en charge les dernières normes ECMAScript,
+vous permettant d'utiliser des fonctionnalités JavaScript modernes dans vos bots.
+
+## Limitations
+
+<Warning>
+  Seules les API JavaScript standard sont disponibles dans le runtime. Les API
+  spécifiques à Node.js ou à d'autres environnements ne sont pour le moment pas
+  disponible.
+</Warning>
+
+## Conclusion
+
+Le choix de V8 comme moteur d'exécution pour Sparkle offre un équilibre entre performances et facilité de développement. En comprenant les capacités et les limitations de cet environnement, vous pouvez créer des bots Twitch efficaces et réactifs.

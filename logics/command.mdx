@@ -1,0 +1,19 @@
+---
+title: "Command"
+icon: "square-terminal"
+---
+
+## Basic
+
+### Inline Code
+
+Les Commands sont déclenchées par des commandes spécifiques dans le chat Twitch. Voici comment vous pouvez en créer une :
+
+```typescript hello-world
+export default createCommand({
+  name: ["nomDeLaCommande"],
+  async callback(payload, ctx) {
+    // Votre code ici
+  },
+})
+```
