@@ -1,0 +1,52 @@
+---
+title: "Limitations"
+description: "Comprendre les limites de l'application Sparkle et les options de plan d'abonnement"
+---
+
+Sparkle offre une puissante plateforme de création de bots Twitch, mais il existe certaines limites à prendre en compte lors de l'utilisation de l'application.
+
+Ces limites sont conçues pour garantir une utilisation équitable des ressources et une expérience fluide pour tous les utilisateurs.
+
+### Limites d'exécution
+
+Est considéré comme une exécution, tout code qui est exécuté dans la runtime de Sparkle. Cela inclut les commandes, les tasks, les schedules et les hooks.
+
+- **Durée d'exécution maximale** : Les exécutions dans la runtime sont limitées à 10 secondes. Tout code qui dépasse cette limite sera automatiquement interrompu.
+
+- **Limite de mémoire** : Chaque exécution de code est limitée à 8 Mo de mémoire. Assurez-vous que votre code reste dans cette limite pour garantir des performances optimales.
+
+- **Limite de concurrence** : Chaque chaine est limité à **1 exécutions simultanées** pour le plan gratuit et **5 pour le plan PRO**. _(les déclancheur de type schedule ne sont pas concernés par cette limite)_
+
+<Info>
+  Si vous avez besoin d'augmenter ces limites, vous pouvez me contacter sur
+  Twitter, pour établir un plan d'abonnement personnalisé.
+</Info>
+
+### Limites du tchat Twitch
+
+- Les envois de message dans le tchat Twitch sont limités à 5 tous les 30 secondes. Cette limite est en place pour éviter les abus et s'acorder avec les limites de Twitch.
+
+<Tip>
+  Vous pouvez debloquer cette limite en souscrivant à un plan d'abonnement qui
+  vous permet d'utiliser un compte de bot personnaliser.
+</Tip>
+
+## Plans d'Abonnement
+
+Sparkle propose différents plans d'abonnement pour répondre aux besoins de différents utilisateurs, de l'utilisation gratuite aux besoins professionnels avancés. Voici un tableau comparatif des plans d'abonnement disponibles :
+
+| Fonctionnalités                       | Plan Gratuit | <span style={{ color: "#B584F1" }}>Plan PRO</span> |
+| :------------------------------------ | -----------: | -------------------------------------------------: |
+| Prix **/ mois**                       |           $0 |                                              $9.99 |
+| Compte de bot personnaliser           |          Non |                                                Oui |
+| Actions de base de données **/ mois** |       50,000 |                                          1,000,000 |
+| Tokens d'IA **/ mois**                |          500 |                                              5,000 |
+| Commandes                             |           10 |                                           Illimité |
+| Tasks                                 |           10 |                                           Illimité |
+| Variables                             |           10 |                                           Illimité |
+| Hooks                                 |            5 |                                           Illimité |
+| Schedules                             |            1 |                                                 50 |
+
+Le choix du plan d'abonnement dépend de vos besoins spécifiques en termes de capacité de traitement, de ressources et de fonctionnalités. Assurez-vous de sélectionner le plan qui correspond le mieux à votre utilisation prévue de Sparkle.
+
+N'oubliez pas de consulter la page de tarification pour plus de détails sur les coûts associés à chaque plan d'abonnement.

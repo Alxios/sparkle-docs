@@ -11,6 +11,20 @@ description: "Mintlify gives you complete control over the look and feel of your
 
 ## Properties
 
+<ResponseField name="twitch" type="TwitchClient">
+  Un objet `TwitchClient` pour interagir avec l'API Twitch. Pour en savoir plus,
+  consultez la documentation de [Twitch](/docs/twitch).
+</ResponseField>
+
+<ResponseField name="data" type="Database" required>
+  Un objet `Database` pour interagir avec la base de données Redis. Pour en
+  savoir plus, consultez la documentation de [Database](/docs/database).
+</ResponseField>
+
+<ResponseField name="name" type="string[]" required>
+  Example: `coin`, `join`, `play`
+</ResponseField>
+
 ### `twitch: TwitchClient`
 
 - **Description :** Fournit un accès à l'API Twitch pour envoyer des messages et gérer la chaîne et la modération.

@@ -1,0 +1,40 @@
+---
+title: VIP Weekly
+---
+
+Dans cette exemple, nous allons créer une récompense qui permettra à un utilisateur d'être VIP pendant une semaine.
+
+```js
+export const removeVip = createTask({
+  id: "remove:vip",
+  callback({ user_id }, { twitch }) {
+    twitch.channel.removeVip(user_id)
+  },
+})
+
+export const onRewardReddemed = createHook({
+  event: "channel.custom_reward_redeemed",
+
+  // On filtre le déclancheur avec le bonne récompense
+  filter: ({ reward }) => {
+    return reward.id === resolveRewardIdByName("Weekly VIP")
+  },
+
+  callback({ user_id }, { twitch, invokeUntil }) {
+    twitch.channel.addVip(user_id)
+
+    // On éxecute la task remove:vip dans 7 jours
+    invokeUntil("remove:vip", "7d", { user_id })
+  },
+})
+```
+
+## Explication
+
+Nous avons deux déclancheurs ici le premier est un Hook `onRewardReddemed` qui est déclanché lorsqu'un viewer récupere une récompense de point de chaine.
+
+Et le second est une task `remove:vip` qui retire le VIP à un viewer.
+
+Dans le `filter` de notre Hook nous vérifions que la récompense est bien celle que nous voulons.
+
+Ensuite dans notre `callback` nous ajoutons le VIP à notre viewer et déclanchons la tâche `remove:vip` qui s'éxecutera dans 7 jours.

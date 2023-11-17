@@ -1,37 +1,75 @@
 ---
 title: "Introduction"
-description: "Display inline code and code blocks"
-icon: "code"
 ---
 
-## Basic
+Le contexte est un objet recu en paramètre par tous les types de déclancheur. Il vous permet d'interagir avec Twitch, la base de données et d'exécuter des tâches.
 
-### Inline Code
+### Propriétés
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+Le contexte expose les propriétés suivantes :
 
+- `twitch` : expose des méthodes pour interagir avec Twitch.
+
+  Pour en savoir plus, consultez la documentation de [Twitch API](/docs/twitch).
+
+- `obs` : expose des méthodes pour interagir avec OBS.
+
+  Pour en savoir plus, consultez la documentation de [OBS API](/docs/twitch).
+
+- `data` : expose des méthodes pour interagir avec la base de données.
+
+  Pour en savoir plus, consultez la documentation de [la Base de Données](/docs/database).
+
+**Exemple d'utilisation du contexte**
+
+Voici un exemple d'utilisation du contexte pour envoyer un message via Twitch :
+
+```javascript
+await ctx.twitch.sendMessage({ message: "Hello World !" })
 ```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+
+## Interagir avec vos Tasks
+
+Le contexte offre des méthodes pour interagir avec vos [Tasks](/logics/task) créer dans Sparkle.
+
+### invoke
+
+La méthode `invoke(id, payload)` vous permet d'exécuter une tâche spécifique en utilisant son identifiant (`id`) et un objet `payload` qui sera transmis à la tâche.
+
+Cela peut être utile pour déclencher des actions spécifiques dans votre bot en réponse à des événements.
+
+Exemple :
+
+```javascript
+const taskPayload = { key: "value" }
+await ctx.invoke("task-id", taskPayload)
 ```
 
-### Code Block
+### invokeUntil
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+La méthode `invokeUntil(id, when, payload)` vous permet d'exécuter une tâche spécifique (`id`) à un moment donné (`when`).
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
+Cela peut être utile pour des scénarios où vous souhaitez attendre un moment spécifique avant d'exécuter une tâche.
+
+`when` peut être une date ou une durée. Si vous fournissez une date, la tâche sera exécutée à cette date. Si vous fournissez une durée, la tâche sera exécutée dans la durée spécifiée à partir de maintenant.
+
+Exemple :
+
+```javascript
+const taskPayload = { key: "value" }
+await ctx.invokeUntil("task-id", "7d", taskPayload)
 ```
 
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
+La fonction `task-id` sera exécutée dans 7 jours.
+
+```javascript
+const taskPayload = { key: "value" }
+const date = new Date("2023-12-31")
+await ctx.invokeUntil("task-id", date, taskPayload)
 ```
-````
+
+La fonction `task-id` sera exécutée le 31 décembre 2023.
+
+<Note>Les planifications ne sont jamais pas en heure locale, mais en UTC.</Note>
+
+N'oubliez pas de consulter la documentation de chaque sous-objet pour en savoir plus sur les fonctionnalités disponibles et les meilleures pratiques.

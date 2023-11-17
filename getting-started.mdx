@@ -1,0 +1,43 @@
+---
+title: "Quick Start"
+description: Créer votre première commande en moins de 5 minutes
+---
+
+Dans ce mini guide, nous allons créer une commande simple qui répondra "Hello World !" dans le tchat Twitch.
+
+<Warning>
+  Pensez à accorder les permissions de modération à `sp4rkle_bot` sur votre
+  chaîne Twitch. Si vous utilisez un compte de bot personnalisé, pensez à lui
+  accorder les permissions également.
+</Warning>
+
+**Créer votre première commande**
+
+1. Depuis l'explorateur créer un nouveau fichier ou utiliser le racourci `Ctrl + N` ou `Cmd + N`.
+
+<sub>Copier coller le code suivant :</sub>
+
+```js
+export default createCommand({
+  name: ["hello"],
+  callback: async (_, ctx) => {
+    ctx.twitch.sendMessage({
+      message: "Hello World !",
+    })
+  },
+})
+```
+
+2. Enregistrer le fichier avec le racourci `Ctrl + S` ou `Cmd + S` ou le bouton `Save` en haut à droite.
+
+3. Dans le panel à droite, taper la commande `!hello` depuis le tchat twitch.
+
+<Frame>
+  <img src="/images/done.jpg" style={{ borderRadius: "0.5rem" }} />
+</Frame>
+
+Vous venez de créer votre première commande ! 🎉
+
+### Aller plus loin
+
+Vous pouvez maintenant vous rendre sur la page des [déclancheurs](/concepts/triggers) pour en apprendre plus sur le système de déclancheurs et créer des interactions plus avancées.

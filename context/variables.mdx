@@ -1,0 +1,20 @@
+---
+title: Env. variables
+---
+
+Sparkle vous offre la possibilité de définir des variables d'environnement pour vos bot. Cela vous permet de stocker des informations sensibles comme des clés d'API en toute sécurité dans un endroit centralisé.
+
+<Info>
+  Vous pouvez definir des variables d'environnement depuis le Panel `Variables`
+  en haut à droite dans Sparkle.
+</Info>
+
+<img src="/images/variables.jpg" style={{ borderRadius: 12 }} />
+
+Vous pouvez ensuite les récuperer depuis n'importe quel fichier créer sur Sparkle avec la fonction `env()`.
+
+```javascript
+env("APP_NAME")
+```
+
+Les Variable d'environement sont stockées de facons sécurisées et ne sont accessible que lors du runtime. Toutes les données sont chiffrées avec une clé qui vous est propres.

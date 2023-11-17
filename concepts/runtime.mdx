@@ -2,18 +2,17 @@
 title: "Runtime"
 ---
 
-La runtime de Sparkle s'appuie sur le moteur v8 pour exécuter vos bloques de logique.
+La runtime de Sparkle s'appuie sur le moteur v8 pour exécuter vos bots.
 
-A la base v8 est une puissante machine virtuelle développée par Google, utilisée pour exécuter JavaScript dans le navigateur Chrome.
+A la base v8 est une machine virtuelle développée par Google, utilisée pour exécuter JavaScript dans le navigateur Chrome.
 
 Dans le contexte de Sparkle, cela signifie que vos bots Twitch fonctionneront dans un environnement similaire à celui d'un navigateur web moderne.
 
-# Pourquoi V8 ?
+## Pourquoi V8 ?
 
-**Reactivité et performance :** v8 est optimisé pour des performances rapides, ce qui est crucial pour la réactivité des bots et qui nous permet de vous fournir les temps de reponse les plus bas possible.
+**Reactivité et performance :** Pour proposer une expérience de chat réactive et fluide, Sparkle doit être capable de traiter les messages de chat rapidement. v8 est très réactifs, ce qui permet d'atteindre cet objectif.
 
-**Compatibilité ECMAScript :** v8 prend en charge les dernières normes ECMAScript,
-vous permettant d'utiliser des fonctionnalités JavaScript modernes dans vos bots.
+**Sécurité :** Contrairement à Node.js, v8 est un environnement isolé. Cela nous assure que votre code sera exécuté dans un environnement sécurisé et controlé.
 
 ## Limitations
 
@@ -23,6 +22,27 @@ vous permettant d'utiliser des fonctionnalités JavaScript modernes dans vos bot
   disponible.
 </Warning>
 
-## Conclusion
+## API
 
-Le choix de V8 comme moteur d'exécution pour Sparkle offre un équilibre entre performances et facilité de développement. En comprenant les capacités et les limitations de cet environnement, vous pouvez créer des bots Twitch efficaces et réactifs.
+Cependant, quelques wrappers sont disponibles pour vous permettre d'interagir avec des interfaces spécifiques à Node.js.
+
+### `console`
+
+**console** est disponible dans le runtime. Et vous permet d'afficher des messages dans la console de Sparkle.
+
+```js
+console.log("Hello world!")
+```
+
+### `fetch`
+
+**fetch** est également disponible est vous permet d'effectuer des requêtes HTTP.
+
+```js
+const response = await fetch("https://example.com")
+const json = await response.json()
+```
+
+Ces wrappers propose une API similaire à celle de Node.js, mais ne sont pas aussi complètes.
+
+Je travaille à l'ajout de nouvelles API, mais cela prend du temps. Si vous avez besoin d'une API spécifique, n'hésitez pas à me le faire savoir sur le [Discord](https://discord.gg/3u9WVdJ).

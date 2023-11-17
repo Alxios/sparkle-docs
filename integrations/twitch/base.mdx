@@ -1,0 +1,16 @@
+---
+title: Introduction
+description: Introduction à l'integration Twitch
+---
+
+L'integration Twitch est disponible par défault depuis l'object `twitch` du `context` dans n'importe quel déclancher.
+
+## Actions de base
+
+### `sendMessage({ message: string })`
+
+sendMessage vous permet d'envoyer un message dans votre chat.
+
+```javascript
+ctx.twitch.sendMessage({ message: "Hello world !" })
+```

@@ -1,0 +1,182 @@
+---
+title: "Moderation"
+description: "Exécuter des actions de modération sur votre chaine Twitch"
+---
+
+L'object `moderation` comprend plusieurs methods en rapport avec votre chaine
+
+## Action disponible
+
+### `ban`
+
+Bannir un utilisateur de la chaine
+
+```javascript
+const banUser = await ctx.twitch.moderation.ban({
+  reason: "Raison du ban",
+  userId: "user_id",
+  duration: 1,
+})
+```
+
+**Arguments**
+
+<ResponseField name="reason" type="string" required>
+  La raison du ban
+</ResponseField>
+
+<ResponseField name="userId" type="string | number" required>
+  L'id de l'utilisateur à bannir
+</ResponseField>
+
+<ResponseField name="duration" type="number">
+  La durée du ban, si non spécifié, le ban est permanent
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un object [BanUser](#banuser)
+
+### `unban`
+
+Débannir un utilisateur de la chaine
+
+```javascript
+await ctx.twitch.moderation.unban("user_id")
+```
+
+### `checkBan`
+
+Verifie si un utilisateur est banni de la chaine
+
+```javascript
+const isBanned = await ctx.twitch.moderation.checkBan("user_id")
+```
+
+### `getModerators`
+
+Récuperer la listes de moderateurs de la chaine
+
+```javascript
+const moderations = await ctx.twitch.moderation.getmoderations()
+
+moderations.forEach((user) => {
+  console.log(user.userDisplayName)
+})
+```
+
+### `addModerator`
+
+Ajouter un modérateur à la chaine
+
+```javascript
+await ctx.twitch.moderation.addModerator("user_id")
+```
+
+### `removeModerator`
+
+Supprimer un modérateur de la chaine
+
+```javascript
+ctx.twitch.moderation.removeModerator("user_id")
+```
+
+### `checkModerator`
+
+Vérifier si un utilisateur est modérateur de la chaine
+
+```javascript
+const isModerator = await ctx.twitch.moderation.checkModerator("user_id")
+```
+
+### `getBlockedTerms`
+
+Récuperer la liste des termes bloqués de la chaine
+
+```javascript
+const blockedTerms = await ctx.twitch.moderation.getBlockedTerms()
+
+blockedTerms.forEach((term) => {
+  console.log(term.text)
+})
+```
+
+Retourne un tableau d'object [BlockedTerm](#blockedterm)
+
+### `addBlockedTerm`
+
+Ajouter un terme à la liste des termes bloqués de la chaine
+
+```javascript
+await ctx.twitch.moderation.addBlockedTerm("term")
+```
+
+### `removeBlockedTerm`
+
+Supprimer un terme de la liste des termes bloqués de la chaine
+
+```javascript
+await ctx.twitch.moderation.removeBlockedTerm("term_id")
+```
+
+## Types
+
+Listes des types de retour des méthodes de l'object `moderation`
+
+### `ChatChatter`
+
+<ResponseField name="userId" type="string">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+<ResponseField name="userName" type="string">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+<ResponseField name="userDisplayName" type="string">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+### `BanUser`
+
+<ResponseField name="creationDate" type="Date">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+<ResponseField name="expiryDate" type="Date">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+<ResponseField name="moderationId" type="string">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+<ResponseField name="userId" type="string">
+  An array of groups with all the pages within that group
+</ResponseField>
+
+### `BlockedTerm`
+
+<ResponseField name="id" type="string">
+  L'id du terme
+</ResponseField>
+
+<ResponseField name="creationDate" type="Date">
+  La date de création du terme
+</ResponseField>
+
+<ResponseField name="expirationDate" type="Date">
+  La date d'expiration du terme
+</ResponseField>
+
+<ResponseField name="updatedDate" type="Date">
+  La date de mise à jour du terme
+</ResponseField>
+
+<ResponseField name="moderatorId" type="string">
+  L'id du modérateur qui a ajouté le terme
+</ResponseField>
+
+<ResponseField name="text" type="string">
+  Le texte du terme bloqué
+</ResponseField>

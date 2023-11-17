@@ -1,0 +1,46 @@
+---
+title: "Chaine"
+description: "Exécuter une action en réponse à une commande Twitch"
+---
+
+L'object channel comprend plusieurs methods en rapport avec votre chaine
+
+## `getVips()`
+
+getVips permet de récupérer la liste des viewers VIP de votre chaine
+
+Il retorune un Object `PaginatedResult<ChatChatterData>`
+
+```javascript
+const vips = await ctx.twitch.channel.getVips()
+
+vips.data.forEach((user) => {
+  console.log(user.displayName)
+})
+```
+
+## `getVips`
+
+getVips permet de récupérer la liste des viewers VIP de votre chaine
+
+Il retorune un Object `PaginatedResult<ChatChatterData>`
+
+```javascript
+const vips = await ctx.twitch.channel.getVips()
+
+vips.data.forEach((user) => {
+  console.log(user.userDisplayName)
+})
+```
+
+## `checkVipForUser`
+
+checkVipForUser permet de vérifier si un viewer est VIP, il prend en paramètre l'identifiant du viewer
+
+Il retorune un Object `ChatChatterData`
+
+```javascript
+const vip = await ctx.twitch.channel.checkVipForUser("123456789")
+
+console.log("status VIP : ", vip.isVip)
+```

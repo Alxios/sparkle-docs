@@ -1,0 +1,16 @@
+---
+title: Hello World
+---
+
+Dans cette exemple, nous allons créer une commande simple qui affiche un message.
+
+```js
+export default createCommand({
+  name: ["hello"],
+  callback: async (_, ctx) => {
+    ctx.twitch.sendMessage({
+      message: "Hello World",
+    })
+  },
+})
+```

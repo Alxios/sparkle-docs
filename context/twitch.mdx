@@ -1,59 +1,65 @@
 ---
 title: "Twitch"
 description: "Add image, video, and other HTML elements"
-icon: "image"
 ---
 
-<img
-  style={{ borderRadius: "0.5rem" }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+Depuis le l'object `context` vous pouvez accéder à l'objet `twitch` qui est un composant qui permet d'interagir avec l'API de Twitch.
 
-## Image
+Cette page fournit une vue d'ensemble de ses fonctionnalités et des exemples de code pour vous aider à démarrer.
 
-### Using Markdown
+## Fonctionnalités du TwitchClient
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+Le `TwitchClient` offre plusieurs méthodes pour interagir avec Twitch, telles que l'envoi de messages, la gestion de la modération, et la manipulation des informations de la chaîne.
 
-```md
-![title](/path/image.jpg)
+### Envoyer un Message
+
+Vous pouvez utiliser `TwitchClient` pour envoyer des messages au chat Twitch.
+
+```javascript
+export default createCommand({
+  name: ["hello"],
+  async callback(payload, ctx) {
+    await ctx.twitch.sendMessage({ message: "Bonjour Twitch!" })
+  },
+})
 ```
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+### Gestion de la Modération
 
-### Using Embeds
+Le client permet également de gérer les actions de modération comme bannir ou débannir un utilisateur.
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+#### Bannir un Utilisateur
 
-```html
-<img height="200" src="/path/image.jpg" />
+```javascript
+async function banUser(userId) {
+  await ctx.twitch.moderation.ban({ userId: userId, reason: "Raison du ban" })
+}
 ```
 
-## Embeds and HTML elements
+#### Débannir un Utilisateur
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-  style={{ width: "100%", borderRadius: "0.5rem" }}
-></iframe>
+```javascript
+async function unbanUser(userId) {
+  await ctx.twitch.moderation.unban(userId)
+}
+```
 
-<br />
+### Gestion des Informations de la Chaîne
 
-<Tip>
+Vous pouvez également utiliser `TwitchClient` pour mettre à jour les informations de la chaîne ou démarrer une publicité.
 
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
+#### Mettre à Jour les Informations de la Chaîne
 
-</Tip>
+```javascript
+async function updateChannelInfo(title, game) {
+  await ctx.twitch.channel.updateChannelInfo({ title: title, gameName: game })
+}
+```
 
-### iFrames
+#### Démarrer une Publicité
 
-Loads another HTML page within the document. Most commonly used for embedding videos.
-
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
+```javascript
+async function startCommercial(length) {
+  await ctx.twitch.channel.startChannelCommercial(length)
+}
 ```

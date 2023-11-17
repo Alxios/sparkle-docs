@@ -1,66 +1,64 @@
 ---
 title: "Task"
-description: "The navigation field in mint.json defines the pages that go in the navigation menu"
-icon: "map"
+description: "Exécuter une tâche manuellement"
+icon: "microchip"
 ---
 
-The navigation menu is the list of links on every website.
+Les **`Tasks`** vous permettent d'exécuter des actions de manière manuelle, en réponse à d'autre bloque logique. Vous pouvez personnaliser la logique de la tâche en fonction d'un `payload` fournies lors de son invocation.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+### Créer une Task
 
-## Navigation syntax
+Depuis l'editeur de Sparkle, créer un nouveau fichier et exportez une fonction `createTask`
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
-
-<CodeGroup>
-
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
+```typescript
+export default createTask({
+  id: "task-id",
+  async callback(payload, ctx) {
+    // Votre code ici
+  },
+})
 ```
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
+### Déclancher une Task
+
+Pour déclancher une Task, vous devez utiliser la méthode `invoke` ou `invokeUntil` disponible sur l'objet `ctx` (contexte).
+
+Exemple :
+
+```javascript
+ctx.invoke("task-id", { key: "value" })
 ```
 
-</CodeGroup>
+Dans l'exemple ci-dessus, `task-id` est l'identifiant de la Task que vous avez définie, et `{ "key": "value" }` représente les données fournies.
 
-## Folders
+### Exemple de Task
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+Voici un exemple de task qui supprime un utilisateur à la liste des VIP de la chaîne :
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+```typescript remove-vip
+export default createTask({
+  id: "remove-vip",
+  async callback(payload, ctx) {
+    const { user_id } = payload
 
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
+    await ctx.twitch.moderation.removeVip(user_id)
+  },
+})
 ```
 
-## Hidden Pages
+Vous pouvez ensuite déclancher cette tâche depuis n'importe quel autre bloc logique :
 
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+```javascript
+ctx.invoke("remove-vip", { user_id: "123456789" })
+```
+
+### Personnalisation des Tasks
+
+Assurez-vous de gérer correctement les erreurs et les cas d'utilisation spécifiques à votre application.
+
+Pour des exemples d'utilisation avancée des tâches, consultez les sections suivantes :
+
+- [Gestion de la Base de Données](/docs/database)
+- [Interactions avec Twitch](/docs/twitch)
+
+N'oubliez pas de consulter la documentation de chaque sous-objet pour en savoir plus sur les fonctionnalités disponibles et les meilleures pratiques.

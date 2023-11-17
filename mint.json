@@ -1,11 +1,7 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Sparkle",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
   "colors": {
     "primary": "#B584F1",
     "light": "#B584F1",
@@ -15,19 +11,37 @@
       "to": "#B584F1"
     }
   },
+  "logo": {
+    "dark": "/images/brand/sparkle-logo.png",
+    "light": "/images/brand/sparkle-logo.png"
+  },
+  "modeToggle": {
+    "isHidden": true
+  },
   "topbarCtaButton": {
-    "name": "Console",
+    "name": "Get Started",
     "url": "https://dashboard.mintlify.com"
   },
+  "topbarLinks": [
+    {
+      "name": "Sign In",
+      "url": "/login"
+    }
+  ],
   "topAnchor": {
     "name": "Documentation",
     "icon": "book"
   },
   "anchors": [
     {
-      "name": "API Reference",
-      "icon": "code",
-      "url": "api-reference"
+      "name": "SDK Références",
+      "icon": "layer-group",
+      "url": "integrations"
+    },
+    {
+      "name": "Exemples",
+      "icon": "books",
+      "url": "exemples"
     },
     {
       "name": "Community",
@@ -37,12 +51,12 @@
   ],
   "navigation": [
     {
-      "group": "Introduction",
-      "pages": ["introduction", "quickstart"]
+      "group": "Documentation",
+      "pages": ["concepts/introduction", "IDE", "getting-started"]
     },
     {
       "group": "Concepts",
-      "pages": ["logic", "limits", "concepts/runtime"]
+      "pages": ["concepts/triggers", "concepts/limit", "concepts/runtime"]
     },
     {
       "group": "Guides",
@@ -50,34 +64,47 @@
         "logics/command",
         "logics/hook",
         "logics/schedule",
-        "logics/task",
-        "logics/rule"
+        "logics/task"
       ]
     },
+
     {
       "group": "Context",
+      "pages": ["context/base", "database/base", "context/variables"]
+    },
+
+    {
+      "group": "Twitch",
       "pages": [
-        "context/base",
-        "context/database",
-        "context/twitch",
-        {
-          "group": "Twitch",
-          "pages": ["context/twitch", "context/twitch", "context/twitch"]
-        }
+        "integrations/twitch/base",
+        "integrations/twitch/channel",
+        "integrations/twitch/moderator",
+        "integrations/twitch/channel-points",
+        "integrations/chat",
+        "integrations/bit",
+        "integrations/clip",
+        "integrations/channelPoint",
+        "integrations/poll",
+        "integrations/prediction"
       ]
     },
+
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
+      "group": "Integrations",
+      "pages": ["integrations/context/obs"]
     },
+
     {
-      "group": "References",
+      "group": "Event",
+      "pages": ["event/twitch"]
+    },
+
+    {
+      "group": "Exemples",
       "pages": [
-        "api-reference/references/context",
-        "api-reference/references/createCommand",
-        "api-reference/references/createHook",
-        "api-reference/references/createTask",
-        "api-reference/references/createSchedule"
+        "exemples/hello-world",
+        "exemples/vip-weekly",
+        "exemples/open-ai"
       ]
     }
   ],
