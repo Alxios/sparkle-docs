@@ -7,20 +7,18 @@ Dans cette exemple, nous allons créer une récompense qui permettra à un utili
 ```js
 export const removeVip = createTask({
   id: "remove:vip",
-  callback({ user_id }, { twitch }) {
+  run: async ({ user_id }, { twitch }) => {
     twitch.channel.removeVip(user_id)
   },
 })
 
 export const onRewardReddemed = createHook({
-  event: "channel.custom_reward_redeemed",
+  event: "reward.redemption.claim",
 
-  // On filtre le déclancheur avec le bonne récompense
-  filter: ({ reward }) => {
-    return reward.id === resolveRewardIdByName("Weekly VIP")
-  },
+  run: async ({ user_id, reward }, { twitch, invokeUntil }) => {
+    // On filtre le déclancheur avec le bonne récompense
+    if (reward.title !== "Weekly VIP") return
 
-  callback({ user_id }, { twitch, invokeUntil }) {
     twitch.channel.addVip(user_id)
 
     // On éxecute la task remove:vip dans 7 jours
