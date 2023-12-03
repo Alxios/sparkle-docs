@@ -1,0 +1,158 @@
+---
+title: "Command"
+description: "Exécuter une action en réponse à une commande Twitch"
+icon: "square-terminal"
+---
+
+Les commandes vous permettent d'exécuter des actions en réponse à des commandes spécifiques envoyées dans le chat Twitch. Chaque commande peut avoir plusieurs alias de déclenchement et vous pouvez également définir un format spécifique pour les arguments de la commande.
+
+## Syntaxe d'une Commande
+
+Les commandes sont déclenchées lorsque l'utilisateur envoie une commande spécifique dans le chat Twitch. Chaque commande est associée à une liste d'alias et une fonction `run` qui définit la logique à exécuter.
+
+Les alias permettent de spécifier plusieurs déclencheurs pour une même commande. Par exemple, si vous avez une commande qui doit répondre à `!command` et `!cmd`, vous pouvez le faire comme suit :
+
+```typescript
+export default createCommand({
+  alias: ["command", "cmd"],
+  run: async (payload, ctx) => {
+    // Votre code ici
+  },
+})
+```
+
+## Paramètres de Commande
+
+Vous pouvez personnaliser davantage vos commandes en ajoutant des paramètres pour gérer différentes actions en fonction des arguments fournis par les utilisateurs. Par exemple, vous pouvez créer une commande `!dice` qui simule le lancer de dés avec un nombre spécifié de faces.
+
+```typescript
+export default createCommand({
+  alias: ["dice"],
+  params: {
+    sides: z.number().min(2, "Le nombre de faces doit être supérieur à 1"),
+  },
+  run: async (payload, ctx) => {
+    const { username, params } = payload
+    const { sides } = params
+
+    // Générer un nombre aléatoire entre 1 et le nombre de faces spécifié
+    const randomNumber = Math.floor(Math.random() * sides) + 1
+
+    // Envoyer le résultat dans le chat Twitch
+    await ctx.twitch.sendMessage({
+      message: `${username} a obtenu un ${randomNumber} sur un dé à ${sides} faces !`,
+    })
+  },
+})
+```
+
+Dans cet exemple, nous avons créé une commande `dice` avec un paramètre `sides` pour spécifier le nombre de faces du dé. Lorsqu'un utilisateur exécute `!dice 6`, le bot générera un nombre aléatoire entre 1 et 6 et affichera le résultat.
+
+### Paramètres Optionnels
+
+Vous pouvez également définir des paramètres optionnels pour vos commandes. Par exemple, vous pouvez créer une commande `!hello` qui salue l'utilisateur qui l'a exécutée. Si aucun nom n'est spécifié, le bot saluera l'utilisateur qui a exécuté la commande.
+
+```typescript
+export default createCommand({
+  alias: ["hello"],
+  params: {
+    name: z.string().optional(),
+  },
+  run: async (payload, ctx) => {
+    const { username, params } = payload
+    const { name } = params
+
+    // Envoyer le message dans le chat Twitch
+    await ctx.twitch.sendMessage({
+      message: `Bonjour ${name ?? username} !`,
+    })
+  },
+})
+```
+
+### Paramètres de type `user`
+
+Un paramètre de type `user` permet de facilement récupérer les informations d'un utilisateur Twitch. Par exemple, vous pouvez créer une commande `!followage` qui affiche le nombre de jours depuis que l'utilisateur a commencé à suivre la chaîne.
+
+```typescript
+export default createCommand({
+  alias: ["followage"],
+  params: {
+    user: z.user(),
+  },
+  run: async (payload, ctx) => {
+    const { user } = payload.params // ici le paramètre `user` est de type `User`
+    const { twitch } = ctx
+
+    // Récupérer la date de début du follow
+    const followDate = await twitch.channel.getFollowDate(user.id)
+
+    // Calculer le nombre de jours depuis le follow
+    const days = Math.floor(
+      (Date.now() - followDate.getTime()) / (1000 * 60 * 60 * 24),
+    )
+
+    // Envoyer le message dans le chat Twitch
+    await ctx.twitch.sendMessage({
+      message: `${user} suit la chaîne depuis ${days} jours !`,
+    })
+  },
+})
+```
+
+## Les policies
+
+Les policies permettent de définir des conditions pour l'exécution d'une commande. Par exemple, vous pouvez définir une commande qui ne peut être exécutée que par les modérateurs du chat Twitch.
+
+```typescript
+export default createCommand({
+  alias: ["command"],
+  policies: ["moderator"],
+  run: async (payload, ctx) => {
+    // Votre code ici
+  },
+})
+```
+
+Pour le moment voici les policies disponibles :
+
+- `moderator` : La commande ne peut être exécutée que par les modérateurs.
+- `subscriber` : La commande ne peut être exécutée que par les abonnés.
+- `vip` : La commande ne peut être exécutée que par les VIP.
+- `broadcaster` : La commande ne peut être exécutée que par le streamer.
+
+## Utilisation d'une Commande
+
+Pour utiliser une commande, les utilisateurs du chat Twitch peuvent simplement envoyer la commande spécifiée dans le chat. Par exemple, si la commande est nommée `!hello`, les utilisateurs peuvent entrer :
+
+```text
+!hello John 5
+```
+
+La commande déclenchera alors la logique spécifiée dans la fonction (`run`) et passera les données fournies par l'utilisateur dans le paramètre `payload.params`. Les données devront respecter les contraintes définies avec le paramètre `params`.
+
+## Payload de Commande
+
+Le payload de la commande est un objet qui définit les informations associées à la commande. Il ressemble à ceci :
+
+<ResponseField name="username" type="string">
+  Le nom d'utilisateur de l'utilisateur qui a envoyé la commande.
+</ResponseField>
+
+<ResponseField name="userId" type="string">
+  L'identifiant de l'utilisateur qui à utisé la commande.
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Le message envoyé par l'utilisateur.
+</ResponseField>
+
+<ResponseField name="params" type="(string | number | User){}">
+  Les paramètres de la commande après avoir été analysés.
+</ResponseField>
+
+<ResponseField name="args" type="string[]">
+  Une liste des paramètres de la commande avant d'être analysés.
+</ResponseField>
+
+{/* Le payload contient des informations telles que le nom d'utilisateur (`username`), le message envoyé (`message`), les paramètres spécifiés par l'utilisateur (`params`), les informations sur l'utilisateur (`userInfo`), et les informations sur le message (`msgInfo`). */}
