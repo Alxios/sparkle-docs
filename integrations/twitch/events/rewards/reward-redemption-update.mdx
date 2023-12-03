@@ -1,0 +1,43 @@
+---
+title: "reward.redemption.update"
+---
+
+Cette évenement est déclanché lorqu'un achat de récompense est modifier par vous un moderateur. Cela intervient par exemple lorsque vous remboursez ou completez un achat de récompense de point de chaine.
+
+Le status de l'achat de récompense sera donc mis à jour, vers `fulfilled` ou `canceled`.
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "reward.redemption.update",
+  run: async (event, ctx) => {
+    // Votre code ici
+  },
+})
+```
+
+### Types
+
+Description des propriétés de l'event `reward.redemption.claim` :
+
+```typescript
+{
+  id: string // Identifiant du rachat de la récompense
+  broadcaster_user_id: string // ID du diffuseur (le propriétaire du canal) demandé
+  broadcaster_user_login: string // Nom d'utilisateur du diffuseur demandé
+  broadcaster_user_name: string // Nom d'affichage du diffuseur demandé
+  user_id: string // ID de l'utilisateur ayant racheté la récompense
+  user_login: string // Nom d'utilisateur de l'utilisateur ayant racheté la récompense
+  user_name: string // Nom d'affichage de l'utilisateur ayant racheté la récompense
+  user_input: string // Entrée de l'utilisateur fournie. Chaîne vide si non fournie.
+  status: "unknown" | "unfulfilled" | "fulfilled" | "canceled" // Statut du rachat de la récompense. Les valeurs possibles sont "unknown", "unfulfilled", "fulfilled" et "canceled".
+  reward: {
+    id: string // Identifiant de la récompense
+    title: string // Nom de la récompense
+    cost: number // Coût de la récompense
+    prompt: string // Description de la récompense
+  }
+  redeemed_at: string // Horodatage RFC3339 du moment où la récompense a été rachetée
+}
+```

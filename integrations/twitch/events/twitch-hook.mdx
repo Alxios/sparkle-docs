@@ -1,0 +1,60 @@
+---
+title: Twicth Hooks
+---
+
+Listes de tous les hooks disponibles pour l'integrations Twitch
+
+### Notifications
+
+| Nom                                                                                                  | Description                                                         |
+| :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| [notification.follow](/integrations/twitch/events/notifications/notification-follow)                 | Notifie lorsqu'un utilisateur follow la chaîne                      |
+| [notification.cheer](/integrations/twitch/events/notifications/notification-cheer)                   | Notifie lorsqu'un utilisateur envoie des bits sur la chaîne         |
+| [notification.subscribe](/integrations/twitch/events/notifications/notification-subscribe)           | Notifie lorsqu'un utilisateur s'abonne à la chaîne                  |
+| [notification.resubscribe](/integrations/twitch/events/notifications/notification-resubscribe)       | Notifie lorsqu'un utilisateur renouvelle son abonnement à la chaîne |
+| [notification.subscribe-gift](/integrations/twitch/events/notifications/notification-subscribe-gift) | Notifie lorsqu'un utilisateur offre un abonnement à la chaîne       |
+
+### Streams
+
+| Nom                                                                  | Description                                                  |
+| :------------------------------------------------------------------- | :----------------------------------------------------------- |
+| [stream.online](/integrations/twitch/events/streams/stream-online)   | Notifie lorsqu'un stream démarre                             |
+| [stream.offline](/integrations/twitch/events/streams/stream-offline) | Notifie lorsqu'un stream s'arrête                            |
+| [stream.update](/integrations/twitch/events/streams/stream-update)   | Notifie lorsque les informations de stream sont mise a jours |
+
+### Rewards (Point de Chaine)
+
+| Nom                                                                                      | Description                                                              |
+| :--------------------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| [reward.create](/integrations/twitch/events/rewards/reward-create)                       | Notifie lorsqu'une récompense de point de chaine est créée               |
+| [reward.update](/integrations/twitch/events/rewards/reward-update)                       | Notifie lorsqu'une récompense de point de chaine est mise a jours        |
+| [reward.remove](/integrations/twitch/events/rewards/reward-remove)                       | Notifie lorsqu'une récompense de point de chaine est supprimée           |
+| [reward.redemption.claim](/integrations/twitch/events/rewards/reward-redemption-claim)   | Notifie lorsqu'une récompense de point de chaine est réclamée            |
+| [reward.redemption.update](/integrations/twitch/events/rewards/reward-redemption-update) | Notifie lorsqu'un achat de récompense de point de chaine est mis a jours |
+
+### Sondages
+
+| Nom                                                              | Description                                    |
+| :--------------------------------------------------------------- | :--------------------------------------------- |
+| [poll.begin](/integrations/twitch/events/polls/poll-begin)       | Notifie lorsqu'un sondage démarre              |
+| [poll.progress](/integrations/twitch/events/polls/poll-progress) | Notifie lorsqu'un vote est ajouté à un sondage |
+| [poll.end](/integrations/twitch/events/polls/poll-end)           | Notifie lorsqu'un sondage est terminé          |
+
+### Prédictions
+
+| Nom                                                                            | Description                                   |
+| :----------------------------------------------------------------------------- | :-------------------------------------------- |
+| [prediction.begin](/integrations/twitch/events/predictions/prediction-begin)   | Notifie lorsqu'une prédiction démarre         |
+| [prediction.progress](/integrations/twitch/events/predictions/prediction-lock) | Notifie lorsqu'une prédiction est verrouillée |
+| [prediction.lock](/integrations/twitch/events/predictions/prediction-lock)     | Notifie lorsqu'une prédiction est verrouillée |
+| [prediction.end](/integrations/twitch/events/predictions/prediction-end)       | Notifie lorsqu'une prédiction est terminée    |
+
+### Moderations
+
+| Nom                                                                                                 | Description                               |
+| :-------------------------------------------------------------------------------------------------- | :---------------------------------------- |
+| [moderator.add](/integrations/twitch/events/moderations/moderation-add)                             | Notifie lorsqu'un modérateur est ajouté   |
+| [moderator.remove](/integrations/twitch/events/moderations/moderation-remove)                       | Notifie lorsqu'un modérateur est supprimé |
+| [moderator.ban](/integrations/twitch/events/moderations/moderation-ban)                             | Notifie lorsqu'un utilisateur est banni   |
+| [moderator.unban](/integrations/twitch/events/moderations/moderation-unban)                         | Notifie lorsqu'un utilisateur est débanni |
+| [moderator.shield_mode.begin](/integrations/twitch/events/moderations/moderation-shield-mode-begin) | Notifie lorsqu'un mode shield est activé  |

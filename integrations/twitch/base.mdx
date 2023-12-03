@@ -3,14 +3,55 @@ title: Introduction
 description: Introduction à l'integration Twitch
 ---
 
-L'integration Twitch est disponible par défault depuis l'object `twitch` du `context` dans n'importe quel déclancher.
+L'integration Twitch est disponible par défault depuis l'object `twitch` du `context` depuis n'importe quel déclancheur.
 
 ## Actions de base
 
-### `sendMessage({ message: string })`
+### `sendMessage`
 
 sendMessage vous permet d'envoyer un message dans votre chat.
 
 ```javascript
 ctx.twitch.sendMessage({ message: "Hello world !" })
+```
+
+**Arguments**
+
+<ResponseField name="message" type="string" required>
+  Le message à envoyer
+</ResponseField>
+
+### `sendAnnouncement`
+
+sendAnnouncement vous permet d'envoyer une annonce dans votre chat.
+
+```javascript
+ctx.twitch.sendAnnouncement({
+  message: "Pensez à vous abonner !",
+  color: "purple",
+})
+```
+
+**Arguments**
+
+<ResponseField name="message" type="string" required>
+  Le message de l'annonce
+</ResponseField>
+
+<ResponseField name="color" type="string" default="primary" required>
+  La couleur de l'annonce
+  
+  valeurs possibles: `blue`, `green`, `orange`,
+  `purple`, `primary`
+
+`primary` represente la couleur par défault de votre chaine.
+
+</ResponseField>
+
+### `sendShoutout`
+
+sendShoutout vous permet de créer un shoutout dans votre chat.
+
+```javascript
+ctx.twitch.sendShoutout("userId")
 ```

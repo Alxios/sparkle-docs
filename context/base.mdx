@@ -10,15 +10,11 @@ Le contexte expose les propriétés suivantes :
 
 - `twitch` : expose des méthodes pour interagir avec Twitch.
 
-  Pour en savoir plus, consultez la documentation de [Twitch API](/docs/twitch).
-
-- `obs` : expose des méthodes pour interagir avec OBS.
-
-  Pour en savoir plus, consultez la documentation de [OBS API](/docs/twitch).
+  Pour en savoir plus, consultez la documentation de [Twitch API](/integrations/twitch/base).
 
 - `data` : expose des méthodes pour interagir avec la base de données.
 
-  Pour en savoir plus, consultez la documentation de [la Base de Données](/docs/database).
+  Pour en savoir plus, consultez la documentation de [la Base de Données](/context/database/base).
 
 **Exemple d'utilisation du contexte**
 
@@ -51,7 +47,9 @@ La méthode `invokeUntil(id, when, payload)` vous permet d'exécuter une tâche 
 
 Cela peut être utile pour des scénarios où vous souhaitez attendre un moment spécifique avant d'exécuter une tâche.
 
-`when` peut être une date ou une durée. Si vous fournissez une date, la tâche sera exécutée à cette date. Si vous fournissez une durée, la tâche sera exécutée dans la durée spécifiée à partir de maintenant.
+`when` peut être une date ou une durée specifiée par une chaîne de caractères (voir [la documentation de la librairie `ms`](https://www.npmjs.com/package/ms)) ou en millisecondes.
+
+Si vous fournissez une date la tâche sera exécutée à cette date. Si vous fournissez une durée, la tâche sera exécutée dans la durée spécifiée à partir de maintenant.
 
 Exemple :
 

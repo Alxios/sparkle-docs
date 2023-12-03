@@ -1,0 +1,38 @@
+---
+title: "poll.begin"
+description: Cette évènement est déclenché lorsqu'un sondage débute sur la chaîne.
+---
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "poll.begin",
+  run: async (event, ctx) => {
+    // ..
+  },
+})
+```
+
+### types
+
+Description des propriétés de l'event `poll.begin` :
+
+```typescript
+{
+  id: string // ID du sondage
+  title: string // Question affichée pour le sondage
+  choices: [{
+    id: string // ID du choix
+    title: string // Texte affiché pour le choix
+    channel_points_votes: number // Nombre de votes reçus via les Points de Chaîne
+    votes: number // Nombre total de votes reçus pour le choix, toutes méthodes de vote confondues
+  }]
+  channel_points_voting: {
+    is_enabled: boolean // Indique si les Points de Chaîne peuvent être utilisés pour voter
+    amount_per_vote: number // Nombre de Points de Chaîne requis pour voter une fois avec des Points de Chaîne
+  }
+  started_at: string // Heure de début du sondage
+  ends_at: string // Heure à laquelle le sondage se terminera
+}
+```

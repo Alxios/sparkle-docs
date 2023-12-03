@@ -11,6 +11,9 @@
       "to": "#B584F1"
     }
   },
+  "metadata": {
+    "title": "Sparkle Docs"
+  },
   "logo": {
     "dark": "/images/brand/sparkle-logo.png",
     "light": "/images/brand/sparkle-logo.png"
@@ -34,7 +37,7 @@
   },
   "anchors": [
     {
-      "name": "SDK Références",
+      "name": "Références",
       "icon": "layer-group",
       "url": "integrations"
     },
@@ -52,7 +55,7 @@
   "navigation": [
     {
       "group": "Documentation",
-      "pages": ["concepts/introduction", "IDE", "getting-started"]
+      "pages": ["IDE", "getting-started"]
     },
     {
       "group": "Concepts",
@@ -61,42 +64,116 @@
     {
       "group": "Guides",
       "pages": [
-        "logics/command",
-        "logics/hook",
-        "logics/schedule",
-        "logics/task"
+        "triggers/command",
+        "triggers/hook",
+        "triggers/schedule",
+        "triggers/task"
       ]
     },
 
     {
       "group": "Context",
-      "pages": ["context/base", "database/base", "context/variables"]
+      "pages": ["context/base", "context/database/base", "context/variables"]
     },
 
     {
       "group": "Twitch",
       "pages": [
         "integrations/twitch/base",
-        "integrations/twitch/channel",
-        "integrations/twitch/moderator",
-        "integrations/twitch/channel-points",
-        "integrations/chat",
-        "integrations/bit",
-        "integrations/clip",
-        "integrations/channelPoint",
-        "integrations/poll",
-        "integrations/prediction"
+        "integrations/twitch/events/twitch-hook",
+        {
+          "group": "Chaine",
+          "pages": [
+            "integrations/twitch/channel",
+            {
+              "group": "events",
+              "pages": [
+                "integrations/twitch/events/notifications/notification-follow",
+                "integrations/twitch/events/notifications/notification-cheer",
+                "integrations/twitch/events/notifications/notification-subscribe",
+                "integrations/twitch/events/notifications/notification-resubscribe",
+                "integrations/twitch/events/notifications/notification-subscribe-gift",
+                "integrations/twitch/events/notifications/notification-subscribe-end"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Moderations",
+          "pages": [
+            "integrations/twitch/moderator",
+            {
+              "group": "events",
+              "pages": [
+                "integrations/twitch/events/moderators/moderator-ban",
+                "integrations/twitch/events/moderators/moderator-unban",
+                "integrations/twitch/events/moderators/moderator-add",
+                "integrations/twitch/events/moderators/moderator-remove",
+                "integrations/twitch/events/moderators/moderator-shield_mode-begin"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Points de Chaine",
+          "pages": [
+            "integrations/twitch/rewards",
+            {
+              "group": "Hooks",
+              "pages": [
+                "integrations/twitch/events/rewards/reward-create",
+                "integrations/twitch/events/rewards/reward-update",
+                "integrations/twitch/events/rewards/reward-remove",
+
+                "integrations/twitch/events/rewards/reward-redemption-claim",
+                "integrations/twitch/events/rewards/reward-redemption-update"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Prédictions",
+          "pages": [
+            "integrations/twitch/predictions",
+            {
+              "group": "events",
+              "pages": [
+                "integrations/twitch/events/predictions/prediction-begin",
+                "integrations/twitch/events/predictions/prediction-progress",
+                "integrations/twitch/events/predictions/prediction-lock",
+                "integrations/twitch/events/predictions/prediction-end"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Sondages",
+          "pages": [
+            "integrations/twitch/polls",
+            {
+              "group": "events",
+              "pages": [
+                "integrations/twitch/events/polls/poll-begin",
+                "integrations/twitch/events/polls/poll-progress",
+                "integrations/twitch/events/polls/poll-end"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Streams",
+          "pages": [
+            "integrations/twitch/events/streams/stream-online",
+            "integrations/twitch/events/streams/stream-offline",
+            "integrations/twitch/events/streams/stream-update"
+          ]
+        }
       ]
     },
 
     {
       "group": "Integrations",
-      "pages": ["integrations/context/obs"]
-    },
-
-    {
-      "group": "Event",
-      "pages": ["event/twitch"]
+      "pages": ["integrations/obs/introduction"]
     },
 
     {

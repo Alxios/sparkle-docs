@@ -1,0 +1,67 @@
+---
+title: "reward.remove"
+description: Cette évenement est déclanché lorsqu'une récompense de point de chaine est suprimé de votre chaîne.
+---
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "reward.remove",
+  run: async (event, ctx) => {
+    // Votre code ici
+  },
+})
+```
+
+### Types
+
+Description des propriétés de l'event `reward.remove` :
+
+```typescript
+interface RewardInfo {
+  id: string // Identifiant de la récompense
+  broadcaster_user_id: string // ID du diffuseur (le propriétaire du canal) demandé
+  broadcaster_user_login: string // Nom d'utilisateur du diffuseur demandé
+  broadcaster_user_name: string // Nom d'affichage du diffuseur demandé
+  is_enabled: boolean // Est-ce que la récompense est actuellement activée. Si false, la récompense n'apparaîtra pas aux spectateurs.
+  is_paused: boolean // Est-ce que la récompense est actuellement en pause. Si true, les spectateurs ne peuvent pas la racheter.
+  is_in_stock: boolean // Est-ce que la récompense est actuellement en stock. Si false, les spectateurs ne peuvent pas la racheter.
+  title: string // Titre de la récompense
+  cost: number // Coût de la récompense
+  prompt: string // Description de la récompense
+  is_user_input_required: boolean // Est-ce que le spectateur doit entrer des informations lorsqu'il rachète la récompense.
+  should_redemptions_skip_request_queue: boolean // Les rachats doivent-ils être marqués comme "accomplis" immédiatement lorsqu'ils sont rachetés et sauter la file d'attente de demande normale au lieu d'être marqués comme "non accomplis".
+  max_per_stream: MaxPerStreamInfo // Information sur le nombre maximum de rachats par diffusion
+  max_per_user_per_stream: MaxPerUserPerStreamInfo // Information sur le nombre maximum de rachats par utilisateur par diffusion
+  background_color: string // Couleur de fond personnalisée pour la récompense. Format : Hexadécimal avec le préfixe #. Exemple : #FA1ED2.
+  image: RewardImageSet | null // Ensemble d'images personnalisées de tailles 1x, 2x et 4x pour la récompense. Peut être nul (null) s'il n'y a pas d'images téléchargées.
+  default_image: ImageInfo // Ensemble d'images par défaut de tailles 1x, 2x et 4x pour la récompense.
+  global_cooldown: GlobalCooldownInfo // Information sur le temps de recharge global
+  cooldown_expires_at: string | null // Horodatage de l'expiration du temps de recharge. null si la récompense n'est pas en temps de recharge.
+  redemptions_redeemed_current_stream: number | null // Le nombre de rachats effectués lors du flux en direct actuel. Compte contre la limite max_per_stream. null si le flux du diffuseur n'est pas en direct ou si max_per_stream n'est pas activé.
+}
+
+interface MaxPerStreamInfo {
+  is_enabled: boolean // Est-ce que la limite maximum par diffusion est activée
+  max_per_stream: number // Nombre maximum de rachats par diffusion
+}
+
+interface MaxPerUserPerStreamInfo {
+  is_enabled: boolean // Est-ce que la limite maximum par utilisateur par diffusion est activée
+  max_per_user_per_stream: number // Nombre maximum de rachats par utilisateur par diffusion
+}
+
+// Objet représentant une image
+interface ImageInfo {
+  url_1x: string // URL de l'image en taille 1x
+  url_2x: string // URL de l'image en taille 2x
+  url_4x: string // URL de l'image en taille 4x
+}
+
+// Objet représentant des informations sur le temps de recharge global
+interface GlobalCooldownInfo {
+  is_enabled: boolean // Est-ce que le temps de recharge global est activé
+  cooldown_seconds: number // Temps de recharge global en secondes
+}
+```

@@ -1,0 +1,27 @@
+---
+title: moderator.remove
+description: Cet évènement est émis lorsqu'un modérateur est supprimé de votre chaine.
+---
+
+Exemple d'utilisation :
+
+```typescript
+export default createHook({
+  event: "moderator.remove",
+  run: async (_, ctx) => {
+    // ...
+  },
+})
+```
+
+### types
+
+Description des propriétés de l'event `moderator.remove` :
+
+```typescript
+{
+  user_id: string // ID de l'utilisateur modérateur supprimé
+  user_login: string // Nom d'utilisateur de l'utilisateur modérateur supprimé
+  user_name: string // Nom d'affichage de l'utilisateur modérateur supprimé
+}
+```

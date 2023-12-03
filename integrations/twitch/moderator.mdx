@@ -58,7 +58,7 @@ const isBanned = await ctx.twitch.moderation.checkBan("user_id")
 Récuperer la listes de moderateurs de la chaine
 
 ```javascript
-const moderations = await ctx.twitch.moderation.getmoderations()
+const moderations = await ctx.twitch.moderation.getModerators()
 
 moderations.forEach((user) => {
   console.log(user.userDisplayName)

@@ -1,0 +1,228 @@
+---
+title: "Predictions"
+description: "Gérez les prédictions sur votre chaîne Twitch"
+---
+
+### `getPredictions`
+
+Récupère la liste des prédictions sur la chaîne.
+
+```javascript
+const predictions = await ctx.twitch.predictions.getPredictions()
+```
+
+**Arguments**
+
+<ResponseField name="pagination" type="ForwardPagination" optional>
+  La pagination pour récupérer les prédictions suivantes.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet contenant les données des prédictions et un curseur de pagination.
+
+### `getPredictionsByIds`
+
+Récupère les prédictions par ID.
+
+```javascript
+const predictionIds = ["prediction_id_1", "prediction_id_2"]
+const predictions =
+  await ctx.twitch.predictions.getPredictionsByIds(predictionIds)
+```
+
+**Arguments**
+
+<ResponseField name="ids" type="string[]">
+  Un tableau d'identifiants de prédictions.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un tableau d'objets [Prediction](#prediction).
+
+### `getPredictionById`
+
+Récupère une prédiction par ID.
+
+```javascript
+const predictionId = "prediction_id"
+const prediction = await ctx.twitch.predictions.getPredictionById(predictionId)
+```
+
+**Arguments**
+
+<ResponseField name="id" type="string">
+  L'ID de la prédiction à récupérer.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet [Prediction](#prediction).
+
+### `createPrediction`
+
+Crée une nouvelle prédiction sur la chaîne.
+
+```javascript
+const data = {
+  title: "Titre de la prédiction",
+  outcomes: ["Option 1", "Option 2"],
+}
+const prediction = await ctx.twitch.predictions.createPrediction(data)
+```
+
+**Arguments**
+
+<ResponseField name="data" type="CreatePredictionData">
+  Les données de la prédiction à créer.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet [Prediction](#prediction).
+
+### `lockPrediction`
+
+Verrouille une prédiction existante.
+
+```javascript
+const predictionId = "prediction_id"
+const lockedPrediction =
+  await ctx.twitch.predictions.lockPrediction(predictionId)
+```
+
+**Arguments**
+
+<ResponseField name="id" type="string">
+  L'ID de la prédiction à verrouiller.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet [Prediction](#prediction).
+
+### `resolvePrediction`
+
+Résout une prédiction existante.
+
+```javascript
+const predictionId = "prediction_id"
+const outcomeId = "outcome_id"
+const resolvedPrediction = await ctx.twitch.predictions.resolvePrediction(
+  predictionId,
+  outcomeId,
+)
+```
+
+**Arguments**
+
+<ResponseField name="id" type="string">
+  L'ID de la prédiction à résoudre.
+</ResponseField>
+<ResponseField name="outcomeId" type="string">
+  L'ID de l'issue à déclarer comme gagnante.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet [Prediction](#prediction).
+
+### `cancelPrediction`
+
+Annule une prédiction existante.
+
+```javascript
+const predictionId = "prediction_id"
+const canceledPrediction =
+  await ctx.twitch.predictions.cancelPrediction(predictionId)
+```
+
+**Arguments**
+
+<ResponseField name="id" type="string">
+  L'ID de la prédiction à annuler.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet [Prediction](#prediction).
+
+## Types
+
+Liste des types de retour des méthodes de l'objet `Predictions`.
+
+### Prediction
+
+<ResponseField name="id" type="string">
+  L'identifiant de la prédiction.
+</ResponseField>
+<ResponseField name="title" type="string">
+  Le titre de la prédiction.
+</ResponseField>
+<ResponseField name="status" type="string">
+  Le statut de la prédiction.
+</ResponseField>
+<ResponseField name="autoLockAfter" type="number">
+  Le temps en secondes après lequel la prédiction sera automatiquement
+  verrouillée.
+</ResponseField>
+<ResponseField name="createdAt" type="Date">
+  La date de création de la prédiction.
+</ResponseField>
+<ResponseField name="endedAt" type="Date">
+  La date de fin de la prédiction.
+</ResponseField>
+<ResponseField name="lockedAt" type="Date">
+  La date de verrouillage de la prédiction.
+</ResponseField>
+<ResponseField name="outcomes" type="PredictionOutcome[]">
+  Un tableau d'objets [PredictionOutcome](#predictionoutcome) représentant les
+  résultats possibles de la prédiction.
+</ResponseField>
+<ResponseField name="winningOutcome" type="PredictionOutcome | null">
+  L'issue gagnante de la prédiction, si résolue.
+</ResponseField>
+<ResponseField name="winningOutcomeId" type="string | null">
+  L'ID de l'issue gagnante de la prédiction, si résolue.
+</ResponseField>
+
+### PredictionOutcome
+
+<ResponseField name="color" type="string">
+  La couleur associée à l'issue de la prédiction.
+</ResponseField>
+<ResponseField name="id" type="string">
+  L'identifiant de l'issue de la prédiction.
+</ResponseField>
+<ResponseField name="title" type="string">
+  Le titre de l'issue de la prédiction.
+</ResponseField>
+<ResponseField name="topPredictors" type="TopPredictor[]">
+  Un tableau d'objets [TopPredictor](#toppredictor) représentant les principaux
+  prédicteurs de cette issue.
+</ResponseField>
+<ResponseField name="totalChannelPoints" type="number">
+  Le nombre total de points de chaîne pariant sur cette issue.
+</ResponseField>
+<ResponseField name="users" type="number">
+  Le nombre total d'utilisateurs ayant parié sur cette issue.
+</ResponseField>
+
+### TopPredictor
+
+<ResponseField name="userId" type="string">
+  L'identifiant de l'utilisateur principal parieur.
+</ResponseField>
+<ResponseField name="userName" type="string">
+  Le nom d'utilisateur de l'utilisateur principal parieur.
+</ResponseField>
+<ResponseField name="userDisplayName" type="string">
+  Le nom d'affichage de l'utilisateur principal parieur.
+</ResponseField>
+<ResponseField name="channelPointsUsed" type="number">
+  Le nombre de points de chaîne utilisés par l'utilisateur principal parieur.
+</ResponseField>
+<ResponseField name="channelPointsWon" type="number">
+  Le nombre de points de chaîne gagnés par l'utilisateur principal parieur.
+</ResponseField>

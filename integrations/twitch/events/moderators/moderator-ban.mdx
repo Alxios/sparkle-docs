@@ -1,0 +1,57 @@
+---
+title: moderator.ban
+description: Cet évènement est déclenché lorsqu'un modérateur bannit ou timeout un utilisateur.
+---
+
+Exemple d'utilisation :
+
+```typescript
+export default createHook({
+  event: "moderator.ban",
+  run: async (event, ctx) => {
+    const { data } = ctx
+
+    const {
+      user_id,
+      reason,
+      banned_at,
+      moderator_user_name,
+      is_permanent,
+      ends_at,
+    } = event
+
+    // On récupère les données du bannissement
+    const banData = {
+      reason,
+      is_permanent,
+      ends_at,
+      moderator_user_name,
+    }
+
+    // On sauvegarde les données du bannissement dans la base de données
+    const dataKey = `ban-history:${user_id}`
+    data.hset(dataKey, banned_at, JSON.stringify(banData))
+  },
+})
+```
+
+### types
+
+Description des propriétés de l'event `moderator.ban` :
+
+```typescript
+{
+  user_id: string // ID de l'utilisateur banni
+  user_login: string // Nom d'utilisateur de l'utilisateur banni
+  user_name: string // Nom d'affichage de l'utilisateur banni
+
+  moderator_user_id: string // ID du modérateur ayant émis le bannissement
+  moderator_user_login: string // Nom d'utilisateur du modérateur ayant émis le bannissement
+  moderator_user_name: string // Nom du modérateur ayant émis le bannissement
+
+  reason: string // Raison du bannissement
+  banned_at: string // Date et heure UTC du bannissement (au format RFC3339)
+  ends_at: string | null // Date et heure UTC de la fin du timeout (null si le bannissement est permanent)
+  is_permanent: boolean // Indique si le bannissement est permanent (true) ou un timeout (false)
+}
+```

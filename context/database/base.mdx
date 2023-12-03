@@ -1,0 +1,96 @@
+---
+title: Database
+---
+
+Depuis l'object context accèsible dans chaque élement créer avec Sparkle, vous pouvez accéder à `data` qui vous permet d'intéragir avec une base de donnée.
+
+Les base de données utiliser par Sparkle suivent un modèle clé/valeur. Vous pouvez stocker des valeurs associées à des clés et les récupérer plus tard.
+
+## Action de base
+
+### Définition d'une valeur
+
+Pour définir une valeur pour une clé donnée, utilisez la méthode `set(key, value)`.
+
+```javascript
+await ctx.data.set("ma_cle", "ma_valeur")
+```
+
+### Récupération d'une valeur
+
+Pour récupérer la valeur associée à une clé donnée, utilisez la méthode `get(key)`. Cette méthode renverra la valeur si la clé existe, sinon elle renverra `null`.
+
+```javascript
+const value = await ctx.data.get("ma_cle")
+```
+
+### Incrémentation
+
+Vous pouvez incrémenter le nombre stocké à une clé donnée avec la méthode `incr(key, value)`.
+
+```javascript
+const newValue = await ctx.data.incr("ma_cle", 5)
+```
+
+### Décrémentation
+
+Pour décrémenter le nombre stocké à une clé donnée, utilisez la méthode `decr(key, value)`.
+
+```javascript
+const newValue = await ctx.data.decr("ma_cle", 2)
+```
+
+### Vérification de l'Existence d'une clé
+
+Pour vérifier si une clé existe dans la base de données, utilisez la méthode `exist(key)`. Elle renverra le nombre de clés existantes correspondant à la clé donnée.
+
+```javascript
+const keyExists = await ctx.data.exist("ma_cle")
+```
+
+### Suppression d'une clé
+
+Pour supprimer une clé de la base de données, utilisez la méthode `del(key)`. Elle renverra le nombre de clés supprimées.
+
+```javascript
+const keysDeleted = await ctx.data.del("ma_cle")
+```
+
+## Gestion des Hash
+
+Les hash sont des types de données qui permettent de stocker des valeurs associées à des clés.
+Pour vous donnée un exemple, vous pouvez stocker les informations d'un utilisateur dans un hash associée à sont identifiant.
+
+Les hash permettent de stocker des valeurs de manière plus structurée que les clés/valeurs.
+
+### Définition d'une valeur
+
+Pour définir une valeur pour une clé donnée, utilisez la méthode `hset(key, field, value)`.
+
+```javascript
+await ctx.data.hset("ma_cle", "mon_champ", "ma_valeur")
+```
+
+### Récupération d'une valeur
+
+Pour récupérer la valeur associée à une clé donnée, utilisez la méthode `hget(key, field)`. Cette méthode renverra la valeur si la clé existe, sinon elle renverra `null`.
+
+```javascript
+const value = await ctx.data.hget("ma_cle", "mon_champ")
+```
+
+### Supprimer une valeur
+
+Pour supprimer une valeur associée à une clé donnée, utilisez la méthode `hdel(key, field)`. Cette méthode renverra le nombre de valeurs supprimées.
+
+```javascript
+const valuesDeleted = await ctx.data.hdel("ma_cle", "mon_champ")
+```
+
+### Récupérer toutes les valeurs
+
+Pour récupérer toutes les valeurs associées à une clé donnée, utilisez la méthode `hgetall(key)`. Cette méthode renverra un objet contenant toutes les valeurs associées à la clé donnée.
+
+```javascript
+const values = await ctx.data.hgetall("ma_cle")
+```

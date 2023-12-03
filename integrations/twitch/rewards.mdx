@@ -1,0 +1,241 @@
+---
+title: "Channel Points"
+description: "Gérez les points de chaîne et les récompenses personnalisées de votre chaîne Twitch"
+---
+
+L'objet `channelPoints` inclus plusieurs méthodes pour gérer les points de chaîne et les récompenses personnalisées sur votre chaîne Twitch.
+
+## Actions
+
+### `getCustomRewards`
+
+Récupère la liste des récompenses personnalisées de la chaîne.
+
+```javascript
+const rewards = await ctx.twitch.channelPoints.getCustomRewards()
+```
+
+**Type de retour**
+
+La méthode retourne un tableau de [CustomReward](#customreward).
+
+### `getCustomRewardsByIds`
+
+Récupère les récompenses personnalisées par ID.
+
+```javascript
+const rewardIds = ["reward_id_1", "reward_id_2"]
+const rewards = await ctx.twitch.channelPoints.getCustomRewardsByIds(rewardIds)
+```
+
+Retourne un tableau de [CustomReward](#customreward).
+
+**Arguments**
+
+<ResponseField name="rewardIds" query="filter" type="string[]">
+  Un tableau d'identifiants de récompenses personnalisées.
+</ResponseField>
+
+### `getCustomRewardById`
+
+Récupère une récompense personnalisée par ID.
+
+```javascript
+const rewardId = "reward_id"
+const reward = await ctx.twitch.channelPoints.getCustomRewardById(rewardId)
+```
+
+Retourne un objet [CustomReward](#customreward).
+
+**Arguments**
+
+<ResponseField name="rewardId" type="string">
+  L'ID de la récompense personnalisée à récupérer.
+</ResponseField>
+
+### `createCustomReward`
+
+Crée une nouvelle récompense personnalisée sur la chaîne.
+
+```javascript
+const data = {
+  title: "Titre de la récompense",
+  cost: 100,
+}
+const reward = await ctx.twitch.channelPoints.createCustomReward(data)
+```
+
+Retourne un objet [CustomReward](#customreward).
+
+**Arguments**
+
+<ResponseField name="data" type="CreateCustomRewardData">
+  Les données de la récompense personnalisée à créer.
+</ResponseField>
+
+### `updateCustomReward`
+
+Met à jour une récompense personnalisée existante.
+
+```javascript
+const rewardId = "reward_id"
+const data = {
+  title: "Nouveau titre de la récompense",
+  cost: 150,
+}
+const updatedReward = await ctx.twitch.channelPoints.updateCustomReward(
+  rewardId,
+  data,
+)
+```
+
+Retourne un objet [CustomReward](#customreward).
+
+**Arguments**
+
+<ResponseField name="rewardId" type="string">
+  L'ID de la récompense personnalisée à mettre à jour.
+</ResponseField>
+<ResponseField name="data" type="UpdateCustomRewardData">
+  Les données mises à jour de la récompense personnalisée.
+</ResponseField>
+
+### `deleteCustomReward`
+
+Supprime une récompense personnalisée de la chaîne.
+
+```javascript
+const rewardId = "reward_id"
+await ctx.twitch.channelPoints.deleteCustomReward(rewardId)
+```
+
+**Arguments**
+
+<ResponseField name="rewardId" type="string">
+  L'ID de la récompense personnalisée à supprimer.
+</ResponseField>
+
+### `getRedemptions`
+
+Récupère les rédemptions de récompenses personnalisées pour une récompense donnée.
+
+```javascript
+const rewardId = "reward_id"
+const status = "FULFILLED"
+const filter = {
+  sort: "NEWEST",
+  maxRedemptions: 10,
+}
+const redemptions = await ctx.twitch.channelPoints.getRedemptions(
+  rewardId,
+  status,
+  filter,
+)
+```
+
+**Arguments**
+
+<ResponseField name="rewardId" type="string">
+  L'ID de la récompense personnalisée.
+</ResponseField>
+<ResponseField name="status" type="CustomRewardRedemptionStatus">
+  Le statut des rédemptions à récupérer ("FULFILLED", "CANCELED", "UNFULFILLED",
+  "PARTIALLY_FULFILLED").
+</ResponseField>
+<ResponseField name="filter" type="PaginatedCustomRewardRedemptionFilter">
+  {" "}
+  (optionnel): Les filtres supplémentaires pour les rédemptions.
+</ResponseField>
+
+**Type de retour**
+
+La méthode retourne un objet contenant les données des rédemptions et un curseur de pagination.
+
+## Types
+
+### `CustomReward`
+
+<ResponseField name="id" type="string">
+  L'identifiant de la récompense personnalisée.
+</ResponseField>
+<ResponseField name="backgroundColor" type="string">
+  La couleur de fond de la récompense.
+</ResponseField>
+<ResponseField name="isEnabled" type="boolean">
+  Indique si la récompense est activée.
+</ResponseField>
+<ResponseField name="cost" type="number">
+  Le coût de la récompense en points de chaîne.
+</ResponseField>
+<ResponseField name="title" type="string">
+  Le titre de la récompense.
+</ResponseField>
+<ResponseField name="prompt" type="string">
+  Le texte de la demande associée à la récompense.
+</ResponseField>
+<ResponseField name="userInputRequired" type="boolean">
+  Indique si une entrée utilisateur est requise.
+</ResponseField>
+<ResponseField name="maxRedemptionsPerStream" type="number">
+  Le nombre maximal de rédemptions par diffusion.
+</ResponseField>
+<ResponseField name="maxRedemptionsPerUserPerStream" type="number">
+  Le nombre maximal de rédemptions par utilisateur par diffusion.
+</ResponseField>
+<ResponseField name="globalCooldown" type="number">
+  Le temps de refroidissement global en secondes.
+</ResponseField>
+<ResponseField name="isPaused" type="boolean">
+  Indique si la récompense est en pause.
+</ResponseField>
+<ResponseField name="isInStock" type="boolean">
+  Indique si la récompense est en stock.
+</ResponseField>
+<ResponseField name="redemptionsThisStream" type="number">
+  Le nombre de rédemptions pendant cette diffusion.
+</ResponseField>
+<ResponseField name="autoFulfill" type="boolean">
+  Indique si les rédemptions sont automatiquement satisfaites.
+</ResponseField>
+<ResponseField name="cooldownExpiryDate" type="Date">
+  La date d'expiration du temps de refroidissement.
+</ResponseField>
+
+### `CustomRewardRedemption`
+
+<ResponseField name="id" type="string">
+  L'identifiant de la rédemption de récompense personnalisée.
+</ResponseField>
+<ResponseField name="userId" type="string">
+  L'identifiant de l'utilisateur qui a effectué la rédemption.
+</ResponseField>
+<ResponseField name="userName" type="string">
+  Le nom d'utilisateur de l'utilisateur qui a effectué la rédemption.
+</ResponseField>
+<ResponseField name="userDisplayName" type="string">
+  Le nom d'affichage de l'utilisateur qui a effectué la rédemption.
+</ResponseField>
+<ResponseField name="userInput" type="string">
+  L'entrée utilisateur associée à la rédemption.
+</ResponseField>
+<ResponseField name="isFulfilled" type="boolean">
+  Indique si la rédemption a été satisfaite.
+</ResponseField>
+<ResponseField name="isCanceled" type="boolean">
+  Indique si la rédemption a été annulée.
+</ResponseField>
+<ResponseField name="redemptionDate" type="Date">
+  La date de la rédemption.
+</ResponseField>
+<ResponseField name="rewardId" type="string">
+  L'identifiant de la récompense associée à la rédemption.
+</ResponseField>
+<ResponseField name="rewardTitle" type="string">
+  Le titre de la récompense associée à la rédemption.
+</ResponseField>
+<ResponseField name="rewardPrompt" type="string">
+  Le texte de la demande associée à la récompense.
+</ResponseField>
+<ResponseField name="rewardCost" type="number">
+  Le coût de la récompense associée à la rédemption.
+</ResponseField>

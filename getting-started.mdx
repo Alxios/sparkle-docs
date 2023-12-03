@@ -6,7 +6,7 @@ description: Créer votre première commande en moins de 5 minutes
 Dans ce mini guide, nous allons créer une commande simple qui répondra "Hello World !" dans le tchat Twitch.
 
 <Warning>
-  Pensez à accorder les permissions de modération à `sp4rkle_bot` sur votre
+  Pensez à accorder les permissions de modération à `Sp4rkle_bot` sur votre
   chaîne Twitch. Si vous utilisez un compte de bot personnalisé, pensez à lui
   accorder les permissions également.
 </Warning>
@@ -19,8 +19,8 @@ Dans ce mini guide, nous allons créer une commande simple qui répondra "Hello 
 
 ```js
 export default createCommand({
-  name: ["hello"],
-  callback: async (_, ctx) => {
+  alias: ["hello"],
+  run: async (_, ctx) => {
     ctx.twitch.sendMessage({
       message: "Hello World !",
     })

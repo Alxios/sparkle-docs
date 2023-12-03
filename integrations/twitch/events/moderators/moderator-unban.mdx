@@ -1,0 +1,31 @@
+---
+title: moderator.unban
+description: Cet évènement est déclenché lorsqu'un modérateur retire un bannissement sur un utilisateur.
+---
+
+Exemple d'utilisation :
+
+```typescript
+export default createHook({
+  event: "moderator.unban",
+  run: async (event, ctx) => {\
+    // ...
+  },
+})
+```
+
+### types
+
+Description des propriétés de l'event `moderator.ban` :
+
+```typescript
+{
+  user_id: string // ID de l'utilisateur banni
+  user_login: string // Nom d'utilisateur de l'utilisateur banni
+  user_name: string // Nom d'affichage de l'utilisateur banni
+
+  moderator_user_id: string // ID du modérateur ayant émis le bannissement
+  moderator_user_login: string // Nom d'utilisateur du modérateur ayant émis le bannissement
+  moderator_user_name: string // Nom du modérateur ayant émis le bannissement
+}
+```

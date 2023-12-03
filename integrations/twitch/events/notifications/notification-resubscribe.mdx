@@ -1,0 +1,42 @@
+---
+title: "notification.resubscribe"
+description: Se déclanche lorsqu'un viewer se réabonne à la chaine.
+---
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "channel.resubscribe",
+  run: async (event, ctx) => {
+    const { data, twitch } = ctx
+    const { user_id, message, cumulative_months } = event
+
+    // Création d'une logique de sub token
+    const key = `${used_id}:sub_token`
+    await date.incr(key, 1)
+
+    // On remercie le viewer
+    await twitch.sendMessage({
+      message: `Merci ${user_id} pour ton ${cumulative_months}e mois d'abonnement !`,
+    })
+  },
+})
+```
+
+Description des propriétés de l'event `channel.resubscribe` :
+
+```typescript
+{
+  user_id: string // ID de l'utilisateur ex: 123456789
+  user_login: string // Login de l'utilisateur ex: "superuser"
+  user_name: string // Nom de l'utilisateur ex: "SuperUser"
+  tier: string
+  message: {
+    text: string
+  }
+  cumulative_months: number
+  streak_months: number
+  duration_months: number
+}
+```

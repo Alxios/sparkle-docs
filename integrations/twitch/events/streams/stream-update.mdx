@@ -1,0 +1,42 @@
+---
+title: "stream.update"
+---
+
+Cette évènement est déclanché lorsque le titre, la catégorie ou le langage de votre stream change.
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "stream.update",
+  run: async (event, ctx) => {
+    const { twitch } = ctx
+    const { category_name, title } = event
+
+    const message = `Les informations de la chaîne ont été mises à jour. Titre: ${title}, dans la catégorie: ${category_name}`
+
+    await twitch.sendMessage({
+      message,
+    })
+  },
+})
+```
+
+### Types
+
+Description des propriétés de l'event `stream.update` :
+
+```typescript
+{
+  // Le nouveau titre de la chaîne
+  title: string
+  // La nouvelle langue de la chaîne
+  language: string
+  // La nouvelle catégorie de la chaîne
+  category_id: string
+  // Le nom de la nouvelle catégorie de la chaîne
+  category_name: string
+  // Les labels de classification de contenu de la chaîne
+  content_classification_labels: string[]
+}
+```

@@ -30,8 +30,8 @@ const callOpenAI = async (prompt: string) => {
 }
 
 export default createCommand({
-  name: ["openai"],
-  async callback({ username, args }, { twitch }) {
+  alias: ["openai"],
+  run: async ({ username, args }, { twitch }) => {
     const msg = args.join(" ")
 
     try {

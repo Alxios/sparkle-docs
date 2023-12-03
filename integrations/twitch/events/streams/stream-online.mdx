@@ -1,0 +1,25 @@
+---
+title: "stream.online"
+description: Cet événement est envoyé lorsque votre stream passe de l'état en ligne à l'état hors ligne.
+---
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "stream.online",
+  run: async (_, ctx) => {
+    const { data } = ctx
+
+    await data.set("stream:online", true)
+  },
+})
+```
+
+Créer un flag 'stream:online' pour permettre à d'autre déclancheur de savoir facilement si le stream est en ligne ou non.
+
+Cette logique peut être utilisé pour mettre restraindre l'accès à certaines commandes ou fonctionnalités de votre bot lorsque vous etes hors ligne. Ou encore appliquer des logique d'execution différentes.
+
+## Types
+
+L'event `stream.online` ne recois aucune propriétés.

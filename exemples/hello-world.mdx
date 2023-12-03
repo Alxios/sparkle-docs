@@ -6,8 +6,8 @@ Dans cette exemple, nous allons créer une commande simple qui affiche un messag
 
 ```js
 export default createCommand({
-  name: ["hello"],
-  callback: async (_, ctx) => {
+  alias: ["hello"],
+  run: async (_, ctx) => {
     ctx.twitch.sendMessage({
       message: "Hello World",
     })

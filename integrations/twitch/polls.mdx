@@ -1,0 +1,114 @@
+---
+title: "Introduction"
+description: Controller les sondages sur votre chaîne.
+---
+
+### `createPoll`
+
+Crée un sondage sur votre chaîne.
+
+```javascript
+const poll = await ctx.twitch.polls.createPoll({
+  title: "Qui va gagner ?",
+  choices: ["Team A", "Team B"],
+  duration: 60,
+  channelPointsPerVote: 100,
+})
+```
+
+**Arguments**
+
+<ResponseField name="title" type="string">
+  Le titre de la prédiction.
+</ResponseField>
+<ResponseField name="choices" type="string[]">
+  Une liste des choix de la prédiction.
+</ResponseField>
+<ResponseField name="duration" type="number">
+  La durée de la prédiction en secondes. (Enntre 15 et 1800)
+</ResponseField>
+<ResponseField name="channelPointsPerVote" type="number | null" optional>
+  Le nombre de points de chaine que le spectateur doit dépenser pour lancer un vote supplémentaire. Le minimum est 1 et le maximum est 1,000,000.
+
+Si rien n'est spécifié, les votes supplémentaires sont désactivés.
+
+</ResponseField>
+
+**Type de retour**
+
+La methode retourne un objet [Poll](#Poll).
+
+### `endPoll`
+
+Termine un sondage en court.
+
+```javascript
+await ctx.twitch.polls.endPoll(poll.id)
+```
+
+**Arguments**
+
+<ResponseField name="pollId" type="string">
+  L'identifiant du sondage.
+</ResponseField>
+<ResponseField name="showpoll" type="boolean" optional>
+  Si `true`, le résultat du sondage sera affiché sur le chat.
+</ResponseField>
+
+**Type de retour**
+
+La methode retourne un objet [Poll](#Poll).
+
+### `getPollById`
+
+Récupère un sondage par son identifiant.
+
+```javascript
+const poll = await ctx.twitch.polls.getPollById("pollId")
+```
+
+La methode retourne un objet [Poll](#Poll).
+
+### `getPolls`
+
+Récupère tout les sondages en court sur votre chaîne.
+
+```javascript
+const polls = await ctx.twitch.polls.getPolls()
+```
+
+La methode retourne un tabaleau d'objet [Poll](#Poll).
+
+## Types
+
+Liste des types de retour des méthodes de l’objet Polls.
+
+### Poll
+
+```typescript
+{
+  id: string // L'identifiant du sondage.
+  title: string // Le titre du sondage.
+  isChannelPointsVotingEnabled: boolean // Si les votes par points de chaine sont activés.
+  channelPointsPerVote: number | null // Le nombre de points de chaine que le spectateur doit dépenser pour lancer un vote supplémentaire.
+
+  status: "ACTIVE" | "ARCHIVED" | "TERMINATED" // Le status du sondage.
+
+  durationInSeconds: number // La durée du sondage en secondes.
+  startDate: string // La date de début du sondage.
+  endDate: string // La date de fin du sondage.
+
+  choices: PollChoice[] // Les choix du sondage.
+}
+```
+
+### PollChoice
+
+```typescript
+{
+  id: string // L'identifiant du choix.
+  title: string // Le titre du choix.
+  totalVotes: number // Le nombre total de votes.
+  channelPointsVotes: number // Le nombre de votes par points de chaine.
+}
+```

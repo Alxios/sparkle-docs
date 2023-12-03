@@ -17,8 +17,8 @@ Vous pouvez utiliser `TwitchClient` pour envoyer des messages au chat Twitch.
 
 ```javascript
 export default createCommand({
-  name: ["hello"],
-  async callback(payload, ctx) {
+  alias: ["hello"],
+  run: async (payload, ctx) => {
     await ctx.twitch.sendMessage({ message: "Bonjour Twitch!" })
   },
 })

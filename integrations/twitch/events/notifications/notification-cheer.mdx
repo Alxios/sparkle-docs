@@ -1,0 +1,31 @@
+---
+title: "notification.cheer"
+---
+
+Est déclanché lorsque un utilisateur envoie un cheer sur votre chaine.
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "notification.cheer",
+  run: async (_, ctx) => {
+    // ..
+  },
+})
+```
+
+## Types
+
+Objet représentant les informations sur un "cheer" (une forme de don de bits) sur votre chaine.
+
+```typescript
+{
+  is_anonymous: boolean // Indique si l'utilisateur a fait un "cheer" de manière anonyme (true) ou non (false)
+  user_id: string | null // ID de l'utilisateur qui a fait le "cheer" sur le canal spécifié (null si is_anonymous est vrai)
+  user_login: string | null // Nom d'utilisateur de l'utilisateur qui a fait le "cheer" sur le canal spécifié (null si is_anonymous est vrai)
+  user_name: string | null // Nom d'affichage de l'utilisateur qui a fait le "cheer" sur le canal spécifié (null si is_anonymous est vrai)
+  message: string // Le message envoyé avec le "cheer"
+  bits: number // Le nombre de bits donnés
+}
+```

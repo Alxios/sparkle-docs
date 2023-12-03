@@ -1,0 +1,33 @@
+---
+title: "notification.follow"
+description: "Cet event est déclenché lorsqu'un viewer suit la chaîne."
+---
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "channel.follow",
+  run: async (event, ctx) => {
+    const { twitch } = ctx
+    const { user_name } = event
+
+    await twitch.sendMessage({
+      message: `Merci ${user_name} pour le follow !`,
+    })
+  },
+})
+```
+
+### Types
+
+Description des propriétés de l'event `channel.follow` :
+
+```typescript
+{
+  user_id: string // ID de l'utilisateur ex: 123456789
+  user_login: string // Login de l'utilisateur ex: "superuser"
+  user_name: string // Nom de l'utilisateur ex: "SuperUser"
+  followed_at: string // Date de follow ex: "2021-01-01T00:00:00Z"
+}
+```

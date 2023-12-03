@@ -1,0 +1,45 @@
+---
+title: moderator.shield_mode
+description: Cet événement est déclenché quand le mode bouclier est activé.
+---
+
+### `moderator.shield_mode.begin`
+
+Cet événement est déclenché quand le mode bouclier est activé.
+
+### `moderator.shield_mode.end`
+
+Cet événement est déclenché quand le mode bouclier est activé.
+
+Exemple d'utilisation :
+
+```typescript
+export const shieldModeBegin = createHook({
+  event: "moderator.shield_mode.begin",
+  run: async (_, ctx) => {
+    // ...
+  },
+})
+
+export const shieldModeEnd = createHook({
+  event: "moderator.shield_mode.end",
+  run: async (_, ctx) => {
+    // ...
+  },
+})
+```
+
+### types
+
+Description des propriétés des events `moderator.shield_mode.begin` et `moderator.shield_mode.end` :
+
+```typescript
+{
+  moderator_user_id: string // ID du modérateur ayant mis à jour le statut du Shield Mode.
+  moderator_user_login: string // Nom d'utilisateur du modérateur
+  moderator_user_name: string // Nom d'affichage du modérateur
+
+  started_at: string | null // Horodatage UTC (au format RFC3339) de l'activation du Shield Mode (présent uniquement dans les événements channel.shield_mode.begin)
+  ended_at: string | null // Horodatage UTC (au format RFC3339) de la désactivation du Shield Mode (présent uniquement dans les événements channel.shield_mode.end)
+}
+```

@@ -1,0 +1,48 @@
+---
+title: "channel.prediction.end"
+description: Cette évènement est déclenché lorsqu'une prediction se termine.
+---
+
+Exemple d'utilisation :
+
+```javascript
+export default createHook({
+  event: "channel.prediction.end",
+  run: async (event, ctx) => {
+    // ..
+  },
+})
+```
+
+### types
+
+Description des propriétés de l'event `channel.prediction.end` :
+
+```typescript
+interface EventSubPredictionBeginEvent {
+  id: string // ID de la prédiction de Points de Chaîne
+  title: string // Titre de la prédiction de Points de Chaîne
+  outcomes: Outcome[] // Un tableau de résultats (outcomes) pour la prédiction de Points de Chaîne
+  started_at: string // Heure de début de la prédiction de Points de Chaîne
+  locks_at: string // Heure à laquelle la prédiction de Points de Chaîne se verrouillera automatiquement
+}
+
+// Objet représentant un résultat (outcome) dans une prédiction de Points de Chaîne
+interface Outcome {
+  id: string // ID du résultat
+  title: string // Titre du résultat
+  color: "pink" | "blue" // Couleur du résultat. Les valeurs valides sont "pink" et "blue".
+  users: number // Nombre d'utilisateurs ayant utilisé des Points de Chaîne pour ce résultat
+  channel_points: number // Nombre total de Points de Chaîne utilisés pour ce résultat
+  top_predictors: TopPredictor[] // Un tableau d'utilisateurs ayant utilisé le plus de Points de Chaîne sur ce résultat
+}
+
+// Objet représentant les utilisateurs ayant utilisé le plus de Points de Chaîne sur un résultat
+interface TopPredictor {
+  user_id: string // ID de l'utilisateur
+  user_login: string // Nom d'utilisateur de l'utilisateur
+  user_name: string // Nom d'affichage de l'utilisateur
+  channel_points_won: number | null // Nombre de Points de Chaîne gagnés (toujours null dans les événements de progression et de verrouillage de la prédiction)
+  channel_points_used: number // Nombre de Points de Chaîne utilisés pour participer à la prédiction
+}
+```
