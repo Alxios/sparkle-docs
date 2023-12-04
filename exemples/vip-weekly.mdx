@@ -33,6 +33,4 @@ Nous avons deux déclancheurs ici le premier est un Hook `onRewardReddemed` qui 
 
 Et le second est une task `remove:vip` qui retire le VIP à un viewer.
 
-Dans le `filter` de notre Hook nous vérifions que la récompense est bien celle que nous voulons.
-
 Ensuite dans notre `callback` nous ajoutons le VIP à notre viewer et déclanchons la tâche `remove:vip` qui s'éxecutera dans 7 jours.

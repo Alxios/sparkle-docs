@@ -10,6 +10,8 @@ Dans cet exemple nous allons voir comment créer un commande qui utilise l'API d
 - Depuis Sparkle ajouté une variable d'environnement `OPENAI_API_KEY` avec votre clé API de OpenAI
 
 ```typescript
+const context = `Tu est viewer et moderateur d'une chaine Twitch, il arrive que certain viewer prennent contacte avec toi pour te demander des informations sur la chaine ou sur le streamer.`
+
 const callOpenAI = async (prompt: string) => {
   const response = await fetch("https://api.openai.com/v1/completions", {
     method: "POST",
@@ -19,7 +21,11 @@ const callOpenAI = async (prompt: string) => {
     },
     body: JSON.stringify({
       model: "gpt-3.5-turbo-instruct",
-      prompt,
+      prompt: `
+      CONTEXT:
+      ${context}
+      QUESTION: 
+      ${prompt}`,
       max_tokens: 100,
       temperature: 0.7,
     }),
@@ -30,7 +36,7 @@ const callOpenAI = async (prompt: string) => {
 }
 
 export default createCommand({
-  alias: ["openai"],
+  alias: ["ask"],
   run: async ({ username, args }, { twitch }) => {
     const msg = args.join(" ")
 
